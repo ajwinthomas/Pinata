@@ -13,10 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private bool isJumpPressed;
     private bool isGrounded;
+    
+
 
     [Header("Ground Checking")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.2f;
+
+    
 
     private void Awake()
     {
@@ -34,7 +38,14 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpHeight);
             isJumpPressed = false;
         }
+
+        
+
+        
+
     }
+
+
 
     private void FixedUpdate()
     {
@@ -60,6 +71,8 @@ public class PlayerMovement : MonoBehaviour
             isJumpPressed=false;
         }
     }
+
+   
 
     //Debugging aid 
 
