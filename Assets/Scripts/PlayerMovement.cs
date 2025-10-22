@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpHeight = 7f;
     [SerializeField] private LayerMask groundLayer;
+    
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private bool isJumpPressed;
     private bool isGrounded;
+    private Vector3 originalScale;
     
 
 
@@ -25,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        originalScale = transform.localScale;
     }
 
     private void Update()
@@ -39,18 +42,28 @@ public class PlayerMovement : MonoBehaviour
             isJumpPressed = false;
         }
 
-        
-
-        
 
     }
+
+    
 
 
 
     private void FixedUpdate()
-    {
-        //Apply horizontal movement
-        rb.linearVelocity = new Vector2(moveInput.x * moveSpeed,rb.linearVelocity.y);
+    { 
+
+       
+            if(moveInput.x > 0)
+            {
+                transform.localScale = new Vector3(originalScale.x,originalScale.y,originalScale.z);
+            }
+            else if (moveInput.x < 0)
+            {
+                transform.localScale = new Vector3(-originalScale.x, originalScale.y, originalScale.z);
+            }
+            rb.linearVelocity = new Vector2(moveInput.x * moveSpeed,rb.linearVelocity.y);
+        
+        
     }
 
     //--------InputSystem Callbacks----------
@@ -83,6 +96,9 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(groundCheck.position,groundCheckRadius);
         }
+
+        
+
     }
 
 
